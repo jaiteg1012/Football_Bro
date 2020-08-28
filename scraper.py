@@ -3,12 +3,13 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from datetime import date 
 import time 
+import random
 
 def setup_driver():
     options = Options()
     options.add_argument('--headless')
     options.add_argument('--disable-gpu') 
-    driver = webdriver.Chrome('{chromedriver path}', chrome_options=options)
+    driver = webdriver.Chrome('{Insert path for chromedrive}', chrome_options=options)
     return driver 
 
 def get_scores(game, total_drives): 
@@ -21,6 +22,7 @@ def get_scores(game, total_drives):
     year = date.today().year
     teams = game.split(' at ') 
     url = f'https://www.nfl.com/games/{teams[0]}-at-{teams[1]}-{year}-{week}'
+    print(url)
     driver = setup_driver()
     driver.get(url)
     time.sleep(3)
@@ -68,7 +70,6 @@ def active_games():
 
     else: 
         week = 'REG' + week 
-
     url = f"https://www.nfl.com/scores/{year}/{week}"
     driver = setup_driver()
     driver.get(url)
@@ -83,4 +84,18 @@ def active_games():
     driver.quit()
 
     return result 
+
+
+def exercise():
+    exercises = ['Pushups: ', 'Plank: ', 'Situps: ', 'Squats: ', 'Wall Sit: ']
+    exercise = random.choice(exercises)
+    reps = str(random.randrange(1,60))
+    if(exercise == 'Plank: ' or exercise == 'Wall Sit: '): 
+        return exercise + reps + ' seconds'
+
+    else: 
+        return exercise + reps + ' reps'
+
+
+
 
